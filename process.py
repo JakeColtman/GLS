@@ -15,11 +15,23 @@ presentation_node = PresentationNode(logs, slack_presenter)
 
 parser = argparse.ArgumentParser(description='Parse creation inputs')
 parser.add_argument("--node_file", dest = "node_file")
+parser.add_argument("--node_type", dest = "node_type")
+parser.add_argument("--create", dest = "create")
+
 args = parser.parse_args()
 
-if args.node_file is not None:
+node = None
+if args.create == "true":
     node = Repository().load_node(args.node_file)
-    try:
-        node.start()
-    except KeyboardInterrupt:
-        Repository().store_node(node, "presentation_node.pickle")
+else:
+    logs = LogFile(FILE_NAME)
+    if args.node_type == "slack":
+        slack_presenter = Slack("", "logtest")
+        node = PresentationNode(logs, slack_presenter)
+    else:
+        node = LogNode(1, logs)
+
+try:
+    node.start()
+except KeyboardInterrupt:
+    Repository().store_node(node, args.node_file)
