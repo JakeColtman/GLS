@@ -29,7 +29,7 @@ else:
         slack_presenter = Slack("", "logtest")
         node = PresentationNode(logs, slack_presenter)
     else:
-        node = LogNode(1, logs)
+        node = LogNode(logs)
 
 try:
     node.start()
