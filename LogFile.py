@@ -1,8 +1,8 @@
 from typing import List
 from LogEntry import LogEntry
 
-class LogFile:
 
+class LogFile:
     def __init__(self, file_name):
         self.file_name = file_name
 
