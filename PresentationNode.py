@@ -21,7 +21,7 @@ class PresentationNode:
     def set_minute_schedule(self, minutes: int):
         self.minutes_schedule = minutes
 
-    def start(self, minutes = 5):
+    def start(self, minutes = 1):
         self.set_minute_schedule(minutes)
         while True:
             sleep(self.minutes_schedule * 60)
