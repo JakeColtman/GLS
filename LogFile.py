@@ -9,5 +9,5 @@ class LogFile:
     def get_rows(self) -> List[LogEntry]:
         with open(self.file_name, "r") as fileOpen:
             lines = fileOpen.readlines()
-            lines = [LogEntry(x.split(",")) for x in lines]
+            lines = [LogEntry(x.split(",")) for x in lines[1:]]
             return lines

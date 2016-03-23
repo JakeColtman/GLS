@@ -1,5 +1,8 @@
 from LogNode import LogNode
+from PresentationNode import PresentationNode
 from Connections.Presentation.Slack import Slack
+from LogFile import LogFile
+
 FILE_NAME = "logs.csv"
 
 def initialize():
@@ -11,6 +14,7 @@ def initialize():
 
 print(initialize())
 
-
-
-#Slack("", "logtest").present_entry("Test")
+logs = LogFile(FILE_NAME)
+slack_presenter = Slack("", "logtest")
+presentation_node = PresentationNode(logs, slack_presenter)
+presentation_node.read_new_entries()
