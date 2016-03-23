@@ -14,4 +14,4 @@ class LogFile:
 
     def add_row(self, log_entry: LogEntry) -> bool:
         with open(self.file_name, "a") as fileOpen:
-            fileOpen.writelines(["{0},{1},{2}".format(log_entry.node_id, log_entry.log_id, log_entry.message)])
+            fileOpen.writelines(["\n{0},{1},{2}".format(log_entry.node_id, log_entry.log_id, log_entry.message)])
