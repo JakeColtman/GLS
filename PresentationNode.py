@@ -1,11 +1,12 @@
 from LogFile import LogFile
+from time import sleep
 
 class PresentationNode:
 
     def __init__(self, log_file: LogFile, presenter):
         self.presenter = presenter
         self.log_file = log_file
-
+        self.minutes_schedule = -1
         self.most_recent_values = {}
 
     def read_new_entries(self):
@@ -16,3 +17,12 @@ class PresentationNode:
             if line.log_id > self.most_recent_values[line.node_id]:
                 self.presenter.present_entry(line.message)
                 self.most_recent_values[line.node_id] = line.log_id
+
+    def set_minute_schedule(self, minutes: int):
+        self.minutes_schedule = minutes
+
+    def start(self, minutes = 5):
+        self.set_minute_schedule(minutes)
+        while True:
+            sleep(self.minutes_schedule * 60)
+            self.read_new_entries()
