@@ -1,5 +1,5 @@
 from LogNode import LogNode
-
+from Connections.Presentation.Slack import Slack
 FILE_NAME = "logs.csv"
 
 def initialize():
@@ -10,3 +10,7 @@ def initialize():
         return LogNode(new_node_id)
 
 print(initialize())
+
+
+
+#Slack("", "logtest").present_entry("Test")
