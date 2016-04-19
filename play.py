@@ -1,8 +1,9 @@
 from Connections.Telegram import TelegramStream
 from Connections.Slack import SlackOutput
-from Nodes import JunctionNode
+from Nodes import JunctionNode, ConsumerNode
+from Parser import Parser
 
 stream = TelegramStream()
 output = SlackOutput()
-node = JunctionNode(stream, output)
+node = ConsumerNode(stream, parser = Parser())
 node.start()

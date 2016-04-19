@@ -10,5 +10,11 @@ class JunctionNode:
 
 
 class ConsumerNode:
-    def __init__(self, stream):
+    def __init__(self, stream, parser):
         self.stream = stream
+        self.parser = parser
+
+    def start(self):
+        for message in self.stream.start():
+            parsed = self.parser.parse_message(message)
+            print(parsed)
