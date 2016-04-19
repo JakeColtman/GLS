@@ -17,4 +17,6 @@ class ConsumerNode:
     def start(self):
         for message in self.stream.start():
             parsed = self.parser.parse_message(message)
-            print(parsed)
+            if parsed is not None:
+                if parsed.ttype == "add_command":
+                    self.parser.add_command(parsed.content[1], parsed.content[0])

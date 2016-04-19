@@ -1,6 +1,1 @@
-{
-  "commands":
-          {
-            "(git_pull)": "git_pull"
-          }
-}
+{"commands": {"add_command ([a-z_]+) (.*)": "add_command", "(git_pully)": "git_pully", "(git_pull)": "git_pull"}}

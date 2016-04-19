@@ -10,16 +10,25 @@ class Parser:
         self.load()
 
     def load(self):
-        self.config = json.load(open(self.location, 'r'))
+        with open(self.location, 'r') as infile:
+            self.config = json.load(infile)
 
     def save(self):
-        json.dump(open(self.location, 'w'))
+        with open(self.location, 'w') as outfile:
+            json.dump(self.config, outfile)
+
+    def add_command(self, pattern, ttype):
+        self.config["commands"][pattern] = ttype
+        self.save()
 
     def parse_message(self, message):
         print("message", message)
-        for condition in self.config["commands"]:
-            compiled = re.compile(condition)
+        for pattern in self.config["commands"]:
+            compiled = re.compile(pattern)
             match = compiled.match(message)
-            print(match)
             if match:
-                return Command(self.config["commands"][condition], match.group(1))
+                return Command(self.config["commands"][pattern], [x for x in match.groups()])
+
+if __name__ == "__main__":
+    parser = Parser()
+    print(parser.parse_message("add_command git_pull (git_pull)").content)
