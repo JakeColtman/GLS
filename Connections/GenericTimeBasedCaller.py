@@ -6,6 +6,7 @@ import requests
 
 class GenericTimeBasedCaller:
     def __init__(self, get_messages_function):
+        print("here")
         self.last_checked = time()
         self.tick_period_seconds = 20
         self.seen_messages = []
@@ -26,6 +27,7 @@ class GenericTimeBasedCaller:
         self.tick_period_seconds = seconds
 
     def start(self):
+        print("here2")
         for message_list in self.get_messages():
             print(message_list)
             for message in message_list:
