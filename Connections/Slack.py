@@ -1,10 +1,30 @@
 from time import time, sleep
 from datetime import datetime, timedelta
 import requests
+import urllib.request as req
+
+
+class SlackOutput:
+    def __init__(self, token=None, channel="di-test"):
+        if token is None:
+            with open("slack_token.txt", "r") as file_open:
+                token = file_open.read()
+        self.token, self.channel = token, channel
+
+    @staticmethod
+    def _url_encode_message(message):
+        return req.pathname2url(message)
+
+    def post_message(self, message):
+        message = self._url_encode_message(message)
+        query = r"https://slack.com/api/chat.postMessage?token={0}&channel=%23{1}&text={2}&pretty=1".format(
+            self.token, self.channel, message)
+        requests.post(query)
+
 
 
 class SlackStream:
-    def __init__(self, token=None, channel="C0Y1K8J0N"):
+    def __init__(self, token=None, channel="#di-test"):
         if token is None:
             with open("slack_token.txt", "r") as file_open:
                 token = file_open.read()
